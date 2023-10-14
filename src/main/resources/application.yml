@@ -8,7 +8,7 @@ spring:
 
     # DB 계정명 및 비밀번호
     username: root
-    password: Wldmswltn12!
+    password: 
 
   jpa:
     show-sql: true
