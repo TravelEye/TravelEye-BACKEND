@@ -1,0 +1,21 @@
+# MySQL 설정
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    # DB Source URL
+    url: jdbc:mysql://localhost:3306/test_db?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&serverTimezone=UTC&characterEncoding=UTF-8
+
+    # DB 계정명 및 비밀번호
+    username: root
+    password: Wldmswltn12!
+
+  jpa:
+    show-sql: true
+
+    # DB의 고유 기능 사용 가능 (create, create-drop, validate, update)
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
