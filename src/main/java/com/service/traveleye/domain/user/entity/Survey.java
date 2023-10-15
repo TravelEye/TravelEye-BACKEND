@@ -1,7 +1,8 @@
-package com.service.traveleye.domain.survey.entity;
+package com.service.traveleye.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.service.traveleye.domain.user.entity.User;
+import com.service.traveleye.global.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Table(name="survey_test")
 @NoArgsConstructor
 @ToString
-public class Survey {
+public class Survey extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column
