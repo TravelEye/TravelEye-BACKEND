@@ -5,11 +5,11 @@ import lombok.*;
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class DataResDto<T> extends BaseResDto {
+public class DataResDTO<T> extends BaseResDTO {
     private T data;
 
     @Builder
-    public DataResDto(int status, String message, T data) {
+    public DataResDTO(int status, String message, T data) {
         super(status, message);
         this.data = data;
     }

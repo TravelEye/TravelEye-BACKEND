@@ -1,6 +1,6 @@
 package com.service.traveleye.global.exception;
 
-import com.service.traveleye.global.dto.DataResDto;
+import com.service.traveleye.global.dto.DataResDTO;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,41 +12,41 @@ import java.io.IOException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
-    public DataResDto<?> handle(BadRequestException e){
-        return DataResDto.builder().status(400).message(e.getMessage()).build();
+    public DataResDTO<?> handle(BadRequestException e){
+        return DataResDTO.builder().status(400).message(e.getMessage()).build();
     }
     @ExceptionHandler(UnauthorizationException.class)
-    public DataResDto<?> handle(UnauthorizationException e){
-        return DataResDto.builder().status(401).message(e.getMessage()).build();
+    public DataResDTO<?> handle(UnauthorizationException e){
+        return DataResDTO.builder().status(401).message(e.getMessage()).build();
     }
     @ExceptionHandler(IllegalArgumentException.class)
-    public DataResDto<?> handle(IllegalArgumentException e){
-        return DataResDto.builder().status(400).message(e.getMessage()).build();
+    public DataResDTO<?> handle(IllegalArgumentException e){
+        return DataResDTO.builder().status(400).message(e.getMessage()).build();
     }
     @ExceptionHandler(NotFoundException.class)
-    public DataResDto<?> handle(NotFoundException e){
-        return DataResDto.builder().status(404).message(e.getMessage()).build();
+    public DataResDTO<?> handle(NotFoundException e){
+        return DataResDTO.builder().status(404).message(e.getMessage()).build();
     }
     @ExceptionHandler(IOException.class)
-    public DataResDto<?> handle(IOException e){
-        return DataResDto.builder().status(500).message(e.getMessage()).build();
+    public DataResDTO<?> handle(IOException e){
+        return DataResDTO.builder().status(500).message(e.getMessage()).build();
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public DataResDto<?> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
-        return DataResDto.builder().status(400).message(exception.getMessage()).build();
+    public DataResDTO<?> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        return DataResDTO.builder().status(400).message(exception.getMessage()).build();
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public DataResDto<?> handleMethodArgumentTypeNotMismatch(MethodArgumentTypeMismatchException exception) {
-        return DataResDto.builder().status(400).message(exception.getMessage()).build();
+    public DataResDTO<?> handleMethodArgumentTypeNotMismatch(MethodArgumentTypeMismatchException exception) {
+        return DataResDTO.builder().status(400).message(exception.getMessage()).build();
     }
     @ExceptionHandler(UnsupportedAudioFileException.class)
-    public DataResDto<?> handleUnSupportedAudioFileException(UnsupportedAudioFileException exception) {
-        return DataResDto.builder().status(400).message(exception.getMessage()).build();
+    public DataResDTO<?> handleUnSupportedAudioFileException(UnsupportedAudioFileException exception) {
+        return DataResDTO.builder().status(400).message(exception.getMessage()).build();
     }
     @ExceptionHandler(RuntimeException.class)
-    public DataResDto<?> handleUnSupportedAudioFileException(RuntimeException exception) {
-        return DataResDto.builder().status(500).message("unexpected Exception").build();
+    public DataResDTO<?> handleUnSupportedAudioFileException(RuntimeException exception) {
+        return DataResDTO.builder().status(500).message("unexpected Exception").build();
     }
 }
 
