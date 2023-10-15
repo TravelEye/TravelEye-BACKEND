@@ -1,4 +1,4 @@
-package com.service.traveleye.domain.entity;
+package com.service.traveleye.domain.survey.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
