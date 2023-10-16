@@ -1,7 +1,6 @@
-package com.service.traveleye.domain.user.entity;
+package com.service.traveleye.domain.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.service.traveleye.domain.user.entity.User;
 import com.service.traveleye.global.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,7 +42,7 @@ public class Survey extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
     @JsonBackReference
-    private User user;
+    private Member member;
 
 
 }

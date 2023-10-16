@@ -1,6 +1,7 @@
-package com.service.traveleye.domain.user.dto;
+package com.service.traveleye.domain.member.dto;
 
-import com.service.traveleye.domain.user.entity.User;
+import com.service.traveleye.domain.config.entity.Authority;
+import com.service.traveleye.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,16 +14,16 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSignupReqDTO {
+public class MemberSignupReqDTO {
     private String email;
     private String password;
 
-    public User toUser(PasswordEncoder passwordEncoder){
-        return User.builder()
-                .userUuid(UUID.randomUUID())
+    public Member toMember(PasswordEncoder passwordEncoder){
+        return Member.builder()
+                .uuid(UUID.randomUUID())
                 .email(email)
                 .password(passwordEncoder.encode(password))
-                .isAdmin(false)
+                .authority(Authority.USER)
                 .shareLocation(false)
                 .build();
     }

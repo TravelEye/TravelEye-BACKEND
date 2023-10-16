@@ -1,4 +1,4 @@
-package com.service.traveleye.domain.user.dto;
+package com.service.traveleye.domain.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginReqDTO {
+public class MemberLoginReqDTO {
 
     private String email;
     private String password;

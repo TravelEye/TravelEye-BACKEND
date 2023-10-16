@@ -1,0 +1,16 @@
+package com.service.traveleye.domain.member.service;
+
+import com.service.traveleye.domain.member.dto.MemberLoginReqDTO;
+import com.service.traveleye.domain.member.dto.MemberSignupReqDTO;
+import com.service.traveleye.domain.member.entity.MemberDetails;
+import com.service.traveleye.global.dto.DataResDTO;
+
+
+public interface MemberService {
+    DataResDTO<?> signup(MemberSignupReqDTO memberSignupReqDTO);
+    DataResDTO<?> login(MemberLoginReqDTO memberLoginReqDTO);
+    DataResDTO<?> logout(MemberDetails memberDetails);
+
+    DataResDTO<?> checkDuplicateUsername(String username);
+
+}
