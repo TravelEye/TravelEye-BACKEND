@@ -2,13 +2,13 @@ package com.service.traveleye.domain.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.service.traveleye.domain.config.entity.Authority;
+import com.service.traveleye.domain.survey.entity.Survey;
 import com.service.traveleye.global.BaseEntity;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
-import java.util.Optional;
 import java.util.UUID;
 
 @Entity

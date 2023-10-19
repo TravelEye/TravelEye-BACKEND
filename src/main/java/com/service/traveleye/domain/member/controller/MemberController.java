@@ -38,8 +38,8 @@ public class MemberController {
         return memberService.logout(memberDetails);
     }
     @GetMapping("/{username}")
-    public DataResDTO<?> CheckDuplicateUsername(@PathVariable String username){
-        return memberService.checkDuplicateUsername(username);
+    public DataResDTO<?> CheckDuplicateEmail(@PathVariable String email){
+        return memberService.checkDuplicateEmail(email);
     }
 
 }

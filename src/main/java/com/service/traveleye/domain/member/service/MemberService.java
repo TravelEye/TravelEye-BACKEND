@@ -11,6 +11,6 @@ public interface MemberService {
     DataResDTO<?> login(MemberLoginReqDTO memberLoginReqDTO);
     DataResDTO<?> logout(MemberDetails memberDetails);
 
-    DataResDTO<?> checkDuplicateUsername(String username);
+    DataResDTO<?> checkDuplicateEmail(String email);
 
 }

@@ -1,23 +1,13 @@
-package com.service.traveleye.domain.member.entity;
+package com.service.traveleye.domain.survey.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.service.traveleye.global.BaseEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-import javax.persistence.*;
-
-@Entity
-@Getter @Setter
-@Table(name="survey_test")
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class Survey extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column
+public class SurveyReqDTO {
     private int id;
 
     /* 목적지 */
@@ -38,11 +28,4 @@ public class Survey extends BaseEntity {
     /* 교통 */
     private float preferDirectFlight; // 직항 vs 경유
     private float preferCheapTraffic; // (짧은 거리) 걷기 선호 vs 대중교통 선호
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    @JsonBackReference
-    private Member member;
-
-
 }
