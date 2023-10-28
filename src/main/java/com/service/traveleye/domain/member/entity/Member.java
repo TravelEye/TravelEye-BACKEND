@@ -1,6 +1,7 @@
 package com.service.traveleye.domain.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.service.traveleye.domain.checklist.entity.Checklist;
 import com.service.traveleye.domain.config.entity.Authority;
 import com.service.traveleye.domain.survey.entity.Survey;
 import com.service.traveleye.global.BaseEntity;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -44,6 +46,9 @@ public class Member extends BaseEntity {
     @JoinColumn
     @JsonManagedReference
     private Survey survey;
+
+    @OneToMany(mappedBy = "member")
+    private List<Checklist> checklist;
 
    @Builder
    public Member(UUID uuid, String phoneNumber, String email, String password, Boolean shareLocation, int age, String gender, Authority authority) {

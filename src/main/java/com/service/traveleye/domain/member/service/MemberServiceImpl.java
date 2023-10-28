@@ -15,7 +15,6 @@ import com.service.traveleye.global.dto.ErrorMessage;
 import com.service.traveleye.global.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -100,11 +99,36 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public DataResDTO<?> logout(MemberDetails memberDetails) {
+//        //memberDetails를 통해, 내 UUID 획득
+//        String myUuid = memberDetails.getMember().getUuid().toString();
+//        //내 UUID로 리프래시 토큰 서칭
+//        RefreshToken refreshToken = refreshTokenRepository.findByKey(myUuid).get();
+//        log.info("내 UUID로 리프래시 토큰 서칭");
+//
+//        //fcm토큰값 없앰
+//        updateFcm(MemberFcmReqDto.builder().fcmToken("").build(), memberDetails);
+//        log.info("fcm토큰값 없앰");
+//
+//        try {
+//            //해당 리프래시 토큰 삭제
+//            refreshTokenRepository.delete(refreshToken);
+//            log.info("리프래시 토큰 삭제");
+//            return DataResDTO.builder()
+//                    .message("로그아웃되었습니다.")
+//                    .data(true)
+//                    .build();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new NoSuchElementException("로그아웃 실패했습니다");
+//        }
         return null;
     }
 
     @Override
-    public DataResDTO<?> checkDuplicateUsername(String username) {
-        return null;
+    public DataResDTO<?> checkDuplicateEmail(String email) {
+        return DataResDTO.builder()
+                        .message("이메일 중복 체크 완료")
+                        .data(memberRepository.existsByEmail(email))
+                        .build();
     }
 }
