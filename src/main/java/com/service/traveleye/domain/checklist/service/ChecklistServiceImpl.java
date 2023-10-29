@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -19,18 +21,19 @@ public class ChecklistServiceImpl implements ChecklistService {
     private final ChecklistRepository checklistRepository;
     private final MemberRepository memberRepository;
     @Override
-    public DataResDTO<?> searchById(Long id) {
-        return null;
+    public List<Checklist> getChecklists(String email) {
+        Member member = memberRepository.findByEmail(email).get();
+        return checklistRepository.findByMemberId(member.getId());
     }
 
     @Override
     @Transactional
-    public DataResDTO<?> add(ChecklistReqDTO checklistReqDTO, String email) {
+    public DataResDTO<?> add(String title , String email) {
         Member member = memberRepository.findByEmail(email).get();
-        Checklist checklist = Checklist.builder().
-                title(checklistReqDTO.getTitle()).
-                completed(checklistReqDTO.getCompleted()).
-                        member(member).build();
+        Checklist checklist = Checklist.builder()
+                .title(title)
+                .completed(false)
+                .member(member).build();
         checklistRepository.save(checklist);
         return null;
     }
@@ -56,7 +59,9 @@ public class ChecklistServiceImpl implements ChecklistService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
-        checklistRepository.deleteById(id);
+    public Integer deleteById(Long id) {
+        System.out.println("id: "+id);
+        Integer result = checklistRepository.deleteChecklistByChecklist_id(id);
+        return result;
     }
 }

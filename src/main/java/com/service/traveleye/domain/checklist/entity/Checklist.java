@@ -17,9 +17,9 @@ import java.util.UUID;
 @ToString
 public class Checklist extends BaseEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable = false)
-    private Long id;
+    private Long checklist_id;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -31,8 +31,8 @@ public class Checklist extends BaseEntity {
     @Column(nullable = false)
     private Boolean completed;
     @Builder
-    public Checklist(Long id, Member member, String title, Boolean completed) {
-        this.id = id;
+    public Checklist( Member member, String title, Boolean completed) {
+
         this.member = member;
         this.title=title;
         this.completed=completed;

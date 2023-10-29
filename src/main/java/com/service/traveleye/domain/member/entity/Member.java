@@ -27,7 +27,7 @@ public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(nullable = false)
-    private int id;
+    private Long id;
     @Column(name = "uuid", nullable = false, unique = true, columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID uuid;
@@ -42,13 +42,13 @@ public class Member extends BaseEntity {
     private String gender;
     private Authority authority; // ADMIN 또는 USER (둘중 하나)
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn
-    @JsonManagedReference
-    private Survey survey;
+//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn
+//    @JsonManagedReference
+//    private Survey survey;
 
-    @OneToMany(mappedBy = "member")
-    private List<Checklist> checklist;
+//    @OneToMany(mappedBy = "member")
+//    private List<Checklist> checklist;
 
    @Builder
    public Member(UUID uuid, String phoneNumber, String email, String password, Boolean shareLocation, int age, String gender, Authority authority) {
