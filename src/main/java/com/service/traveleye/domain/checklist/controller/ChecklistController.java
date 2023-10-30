@@ -1,8 +1,8 @@
 package com.service.traveleye.domain.checklist.controller;
 
 import com.service.traveleye.domain.checklist.dto.ChecklistAddReqDTO;
-import com.service.traveleye.domain.checklist.dto.ChecklistDeleteReqDTO;
 import com.service.traveleye.domain.checklist.dto.ChecklistReqDTO;
+import com.service.traveleye.domain.checklist.dto.ChecklistUpdateReqDTO;
 import com.service.traveleye.domain.checklist.entity.Checklist;
 import com.service.traveleye.domain.checklist.service.ChecklistService;
 import com.service.traveleye.global.dto.DataResDTO;
@@ -31,16 +31,17 @@ public class ChecklistController {
         return null ;
     }
 
-    @PutMapping("/checklist")
-    public DataResDTO<?> updateCheckList(ChecklistReqDTO checklistReqDTO){
-
-
+    @PutMapping("/checklist/{id}")
+    public DataResDTO<?> updateCheckList(@PathVariable Long id, @RequestBody ChecklistUpdateReqDTO checklistUpdateReqDTO){
+        String email = "user1@gmail.com";
+        System.out.println("Boolean VALUE: "+checklistUpdateReqDTO.getCompleted());
+        System.out.println(checklistUpdateReqDTO.toString());
+        checklistService.update(id,checklistUpdateReqDTO,email);
         return null;
     }
 
     @DeleteMapping("/checklist/{id}")
-    public Integer deleteCheckList(@PathVariable Long id){  
-        System.out.println("id: " + id);
+    public Integer deleteCheckList(@PathVariable Long id){
         Integer result = checklistService.deleteById(id);
         return result;
     }

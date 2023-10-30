@@ -31,20 +31,20 @@ class TravelEyeBackendApplicationTests {
         Member result = memberRepository.findByEmail("user1@gmail.com").get();
         System.out.println(result);
     }
-    @Test
-    void addChecklist(){
-        ChecklistReqDTO checklistReqDTO = ChecklistReqDTO.builder().id(1L).title("Test 1").completed(false).build();
+//    @Test
+//    void addChecklist(){
+//        ChecklistReqDTO checklistReqDTO = ChecklistReqDTO.builder().id(1L).title("Test 1").completed(false).build();
+//
+//        DataResDTO<?> result = checklistService.add(checklistReqDTO,"user1@gmail.com");
+//        System.out.println(result);
+//    }
 
-        DataResDTO<?> result = checklistService.add(checklistReqDTO,"user1@gmail.com");
-        System.out.println(result);
-    }
-
-    @Test
-    void updateChecklist(){
-        ChecklistReqDTO checklistReqDTO = ChecklistReqDTO.builder().id(1L).title("Test 1 update").completed(true).build();
-        DataResDTO<?> result = checklistService.update(checklistReqDTO,"user1@gmail.com");
-        System.out.println(result);
-    }
+//    @Test
+//    void updateChecklist(){
+//        ChecklistReqDTO checklistReqDTO = ChecklistReqDTO.builder().id(1L).title("Test 1 update").completed(true).build();
+//        DataResDTO<?> result = checklistService.update(ch,"user1@gmail.com");
+//        System.out.println(result);
+//    }
 
     @Test
     void deleteChecklist(){

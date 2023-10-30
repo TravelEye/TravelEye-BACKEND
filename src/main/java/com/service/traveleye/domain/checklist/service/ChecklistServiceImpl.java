@@ -1,6 +1,7 @@
 package com.service.traveleye.domain.checklist.service;
 
 import com.service.traveleye.domain.checklist.dto.ChecklistReqDTO;
+import com.service.traveleye.domain.checklist.dto.ChecklistUpdateReqDTO;
 import com.service.traveleye.domain.checklist.entity.Checklist;
 import com.service.traveleye.domain.checklist.repository.ChecklistRepository;
 import com.service.traveleye.domain.member.entity.Member;
@@ -40,13 +41,13 @@ public class ChecklistServiceImpl implements ChecklistService {
 
     @Override
     @Transactional
-    public DataResDTO<?> update( ChecklistReqDTO checklistReqDTO , String email) {
+    public DataResDTO<?> update(Long id, ChecklistUpdateReqDTO checklistUpdateReqDTO , String email) {
         Member member = memberRepository.findByEmail(email).get();
         // member 가 valid 한 member 인지 체크가 필요
-            Checklist checklist = checklistRepository.findById(checklistReqDTO.getId()).get();
+            Checklist checklist = checklistRepository.findById(id).get();
             if (checklist != null) {
-                checklist.setTitle(checklistReqDTO.getTitle());
-                checklist.setCompleted(checklistReqDTO.getCompleted());
+                checklist.setTitle(checklistUpdateReqDTO.getTitle());
+                checklist.setCompleted(checklistUpdateReqDTO.getCompleted());
                 checklistRepository.save(checklist);
             } else {
                 // Handle the case where the checklist is null
@@ -60,8 +61,7 @@ public class ChecklistServiceImpl implements ChecklistService {
     @Override
     @Transactional
     public Integer deleteById(Long id) {
-        System.out.println("id: "+id);
-        Integer result = checklistRepository.deleteChecklistByChecklist_id(id);
+        Integer result = checklistRepository.deleteChecklistByChecklistId(id);
         return result;
     }
 }

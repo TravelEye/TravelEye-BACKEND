@@ -19,6 +19,6 @@ public interface ChecklistRepository  extends JpaRepository<Checklist,Long> {
     List<Checklist> findByMemberId(@Param("id") Long id);
     @Modifying
     @Query(value = "DELETE FROM checklist_test WHERE checklist_id = :id", nativeQuery = true)
-    Integer deleteChecklistByChecklist_id(@Param("id") Long id);
+    Integer deleteChecklistByChecklistId(@Param("id") Long id);
 
 }

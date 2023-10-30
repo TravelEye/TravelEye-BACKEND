@@ -9,6 +9,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class  ChecklistDeleteReqDTO {
-    private Long id;
+public class ChecklistUpdateReqDTO {
+    private String title;
+    private Boolean completed;
 }
