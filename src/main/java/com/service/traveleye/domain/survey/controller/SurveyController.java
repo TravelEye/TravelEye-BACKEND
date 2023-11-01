@@ -15,7 +15,8 @@ public class SurveyController {
 
     private final SurveyService surveyService;
     @PostMapping("/survey")
-    public DataResDTO<?> signup(SurveyReqDTO surveyReqDTO){
-        return surveyService.surveyRegister(surveyReqDTO);
+    public DataResDTO<?> surveyRegister(SurveyReqDTO surveyReqDTO){
+        String email = "user1@gmail.com";
+        return surveyService.surveyRegister(email,surveyReqDTO);
     }
 }

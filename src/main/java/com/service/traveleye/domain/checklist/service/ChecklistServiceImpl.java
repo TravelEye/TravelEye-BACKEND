@@ -29,7 +29,7 @@ public class ChecklistServiceImpl implements ChecklistService {
 
     @Override
     @Transactional
-    public DataResDTO<?> add(String title , String email) {
+    public DataResDTO<?> addChecklist(String title , String email) {
         Member member = memberRepository.findByEmail(email).get();
         Checklist checklist = Checklist.builder()
                 .title(title)
@@ -41,7 +41,7 @@ public class ChecklistServiceImpl implements ChecklistService {
 
     @Override
     @Transactional
-    public DataResDTO<?> update(Long id, ChecklistUpdateReqDTO checklistUpdateReqDTO , String email) {
+    public DataResDTO<?> updateChecklist(Long id, ChecklistUpdateReqDTO checklistUpdateReqDTO , String email) {
         Member member = memberRepository.findByEmail(email).get();
         // member 가 valid 한 member 인지 체크가 필요
             Checklist checklist = checklistRepository.findById(id).get();

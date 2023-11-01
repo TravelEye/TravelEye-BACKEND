@@ -27,7 +27,7 @@ public class ChecklistController {
     @PostMapping("/checklist")
     public DataResDTO<?> addCheckList(@RequestBody ChecklistAddReqDTO checklistAddReqDTO){
         String email = "user1@gmail.com";
-        checklistService.add(checklistAddReqDTO.getTitle(),email);
+        checklistService.addChecklist(checklistAddReqDTO.getTitle(),email);
         return null ;
     }
 
@@ -36,7 +36,7 @@ public class ChecklistController {
         String email = "user1@gmail.com";
         System.out.println("Boolean VALUE: "+checklistUpdateReqDTO.getCompleted());
         System.out.println(checklistUpdateReqDTO.toString());
-        checklistService.update(id,checklistUpdateReqDTO,email);
+        checklistService.updateChecklist(id,checklistUpdateReqDTO,email);
         return null;
     }
 

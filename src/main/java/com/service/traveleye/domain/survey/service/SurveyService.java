@@ -4,5 +4,5 @@ import com.service.traveleye.domain.survey.dto.SurveyReqDTO;
 import com.service.traveleye.global.dto.DataResDTO;
 
 public interface SurveyService {
-    DataResDTO<?> surveyRegister(SurveyReqDTO SurveyReqDTO);
+    DataResDTO<?> surveyRegister(String email, SurveyReqDTO SurveyReqDTO);
 }

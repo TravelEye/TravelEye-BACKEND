@@ -10,9 +10,9 @@ import java.util.List;
 public interface ChecklistService {
 
     List<Checklist> getChecklists(String email);
-    DataResDTO<?> add(String title, String email);
+    DataResDTO<?> addChecklist(String title, String email);
 
-    DataResDTO<?>  update(Long id,ChecklistUpdateReqDTO checklistUpdateReqDTO , String email);
+    DataResDTO<?>  updateChecklist(Long id,ChecklistUpdateReqDTO checklistUpdateReqDTO , String email);
 
     Integer deleteById(Long id);
 

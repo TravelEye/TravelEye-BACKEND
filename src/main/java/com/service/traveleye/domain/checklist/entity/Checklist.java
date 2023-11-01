@@ -19,7 +19,7 @@ public class Checklist extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable = false)
-    private Long checklist_id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

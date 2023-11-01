@@ -42,10 +42,11 @@ public class Member extends BaseEntity {
     private String gender;
     private Authority authority; // ADMIN 또는 USER (둘중 하나)
 
-//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn
-//    @JsonManagedReference
-//    private Survey survey;
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "survey_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private Survey survey;
+
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Checklist> checklist;

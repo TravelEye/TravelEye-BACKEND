@@ -13,12 +13,12 @@ import java.util.Optional;
 @Repository
 public interface ChecklistRepository  extends JpaRepository<Checklist,Long> {
 
-    @Query(value = "SELECT * FROM checklist_test WHERE checklist_id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM checklist_test WHERE id = :id", nativeQuery = true)
     List<Checklist> findByChecklistId(@Param("id") Long id);
     @Query(value = "SELECT * FROM checklist_test WHERE member_id = :id", nativeQuery = true)
     List<Checklist> findByMemberId(@Param("id") Long id);
     @Modifying
-    @Query(value = "DELETE FROM checklist_test WHERE checklist_id = :id", nativeQuery = true)
+    @Query(value = "DELETE FROM checklist_test WHERE id = :id", nativeQuery = true)
     Integer deleteChecklistByChecklistId(@Param("id") Long id);
 
 }
