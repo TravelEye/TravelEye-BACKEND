@@ -6,6 +6,7 @@ import org.locationtech.jts.geom.Point;
 import javax.persistence.*;
 
 @Entity
+@Table(name="landmark_test")
 public class Landmark extends BaseEntity {
 
     @Id
