@@ -1,4 +1,4 @@
-package com.service.traveleye.domain.country.entity;
+package com.service.traveleye.domain.destination.entity;
 
 import com.service.traveleye.global.BaseEntity;
 import lombok.Getter;
@@ -11,10 +11,10 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name="country_test")
+@Table(name="destination_test")
 @NoArgsConstructor
 @ToString
-public class Country extends BaseEntity {
+public class Destination extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable = false)

@@ -1,14 +1,14 @@
-package com.service.traveleye.domain.country.dto;
+package com.service.traveleye.domain.destination.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class CityReqDTO {
+public class CityResDTO {
+    private Long id;
     private String city;
 
 
