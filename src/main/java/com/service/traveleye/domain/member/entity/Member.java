@@ -16,7 +16,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name="member_test")
+@Table(name="members_test")
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(callSuper = true)
@@ -25,7 +25,7 @@ import java.util.UUID;
 public class Member extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(nullable = false)
     private Long id;
     @Column(name = "uuid", nullable = false, unique = true, columnDefinition = "char(36)")
@@ -42,10 +42,10 @@ public class Member extends BaseEntity {
     private String gender;
     private Authority authority; // ADMIN 또는 USER (둘중 하나)
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "survey_id", referencedColumnName = "id")
-    @JsonManagedReference
-    private Survey survey;
+//    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "survey_id", referencedColumnName = "id")
+//    @JsonManagedReference
+//    private Survey survey;
 
 
 //    @OneToMany(mappedBy = "member")
