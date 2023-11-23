@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TripRepository extends JpaRepository<Trip,Long> {
 
+void deleteById(Long id);
+Trip getById(Long id);
 
 }

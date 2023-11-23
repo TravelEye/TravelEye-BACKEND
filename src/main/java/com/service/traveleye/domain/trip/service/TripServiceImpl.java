@@ -5,11 +5,13 @@ import com.service.traveleye.domain.destination.repository.DestinationRepository
 import com.service.traveleye.domain.member.entity.Member;
 import com.service.traveleye.domain.member.repository.MemberRepository;
 import com.service.traveleye.domain.trip.dto.TripAddReqDTO;
+import com.service.traveleye.domain.trip.dto.TripUpdateReqDTO;
 import com.service.traveleye.domain.trip.entity.Trip;
 import com.service.traveleye.domain.trip.repository.TripRepository;
 import com.service.traveleye.global.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +22,7 @@ private final TripRepository tripRepository;
 private final MemberRepository memberRepository;
 private final DestinationRepository destinationRepository;
     @Override
-    public Boolean addTrip(String email, TripAddReqDTO tripAddReqDTO) {
+    public boolean addTrip(String email, TripAddReqDTO tripAddReqDTO) {
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Member not found"));
         Destination destination = destinationRepository.findById(tripAddReqDTO.getDestinationId())
                 .orElseThrow(() -> new NotFoundException("Destination not found"));
@@ -33,9 +35,38 @@ private final DestinationRepository destinationRepository;
         trip.setState(tripAddReqDTO.getState());
 
 
-        System.out.println(trip.toString());
         tripRepository.save(trip);
 
         return true;
+    }
+
+    @Override
+    public boolean deleteTripById(Long id) {
+        try {
+            tripRepository.deleteById(id);
+            return true;
+        } catch (EmptyResultDataAccessException ex) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateTrip(String email, TripUpdateReqDTO tripUpdateReqDTO) {
+        Trip trip = tripRepository.getById(tripUpdateReqDTO.getId());
+        Destination destination = destinationRepository.findById(tripUpdateReqDTO.getDestinationId()).get();
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Member not found"));
+
+        trip.setId(tripUpdateReqDTO.getId());
+        trip.setDestination(destination);
+        trip.setState(trip.getState());
+        trip.setStartDate(tripUpdateReqDTO.getStartDate());
+        trip.setEndDate(tripUpdateReqDTO.getEndDate());
+        trip.setTitle(tripUpdateReqDTO.getTitle());
+        trip.setMember(member);
+
+        System.out.println(trip);
+        tripRepository.save(trip);
+
+        return false;
     }
 }
