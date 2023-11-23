@@ -1,16 +1,36 @@
-package com.service.traveleye.domain.location.service;
+package com.service.traveleye.domain.landmark.service;
 
-import com.service.traveleye.domain.location.entity.Location;
-import com.service.traveleye.domain.location.util.GeometryUtil;
-import com.service.traveleye.global.dto.DataResDTO;
+import com.service.traveleye.domain.landmark.dto.LandmarkListResDTO;
+import com.service.traveleye.domain.landmark.entity.Landmark;
+import com.service.traveleye.domain.landmark.repository.LandmarkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class LocationServiceImpl implements LocationService {
+public class LandmarkServiceImpl implements LandmarkService {
+private final LandmarkRepository landmarkRepository;
+
+
+
+    @Override
+    public List<LandmarkListResDTO> getLandmarkList() {
+       return landmarkRepository.findAll().stream()
+                .map(landmark -> LandmarkListResDTO.builder()
+                        .landmarkId(landmark.getLandmarkId())
+                        .landmarkName(landmark.getLandmarkName())
+                        .longitude(landmark.getLongitude())
+                        .latitude(landmark.getLatitude())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 //    @Override
 //    public DataResDTO<?> getRecommendList(String email, LocationRecommendReqDTO locationRecommendReqDTO) {
 //        // Location 자료형으로 변수를 선언하여 해당 요청받은 x,y 값으로 북동쪽과 남서쪽의 위치를 계산

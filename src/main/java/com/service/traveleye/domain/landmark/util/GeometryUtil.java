@@ -1,6 +1,6 @@
-package com.service.traveleye.domain.location.util;
+package com.service.traveleye.domain.landmark.util;
 
-import com.service.traveleye.domain.location.entity.Location;
+import com.service.traveleye.domain.landmark.entity.Location;
 //하버사인 공식(Haversine Formula)을 이용히여 두 지점 사이의 최단거리를 구한다
 public class GeometryUtil {
 

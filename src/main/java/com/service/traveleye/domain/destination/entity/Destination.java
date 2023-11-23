@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,4 +29,6 @@ public class Destination extends BaseEntity {
 
     @Column(nullable = false)
     private String city;
+
+
 }

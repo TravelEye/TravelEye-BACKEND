@@ -1,11 +1,9 @@
-package com.service.traveleye.domain.location.entity;
+package com.service.traveleye.domain.landmark.entity;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Entity;
+
 @Getter
 public class Location {
     private Double latitude;

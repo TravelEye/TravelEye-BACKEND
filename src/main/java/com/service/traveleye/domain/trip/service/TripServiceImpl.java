@@ -4,6 +4,7 @@ import com.service.traveleye.domain.destination.entity.Destination;
 import com.service.traveleye.domain.destination.repository.DestinationRepository;
 import com.service.traveleye.domain.member.entity.Member;
 import com.service.traveleye.domain.member.repository.MemberRepository;
+import com.service.traveleye.domain.trip.dto.ArrayTripResDTO;
 import com.service.traveleye.domain.trip.dto.TripAddReqDTO;
 import com.service.traveleye.domain.trip.dto.TripUpdateReqDTO;
 import com.service.traveleye.domain.trip.entity.Trip;
@@ -13,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -68,5 +72,20 @@ private final DestinationRepository destinationRepository;
         tripRepository.save(trip);
 
         return false;
+    }
+
+    @Override
+    public List<ArrayTripResDTO> getByMemberId(String email) {
+        Member member = memberRepository.findByEmail(email).get();
+       List<Trip> trips =  tripRepository.getByMemberId( member.getId());
+       List<ArrayTripResDTO> arrayTripResDTOS = trips.stream().map(trip -> ArrayTripResDTO.builder()
+               .tripId(trip.getId())
+               .startDate(trip.getStartDate())
+                       .endDate(trip.getEndDate())
+               .state(trip.getState())
+               .title(trip.getTitle())
+               .plans(trip.getPlans())
+       .build()).collect(Collectors.toList());
+return arrayTripResDTOS;
     }
 }
