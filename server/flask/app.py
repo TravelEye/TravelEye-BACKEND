@@ -1,93 +1,65 @@
-# import os
-# from flask import Flask, jsonify, request
-# from flask_cors import CORS
-# from dotenv import load_dotenv
-# from TFIDF import TfidfRecommender
-# from mysql_connector import MySqlConnector, NoDataException
-#
-# load_dotenv()
-#
-# # Flask 객체 인스턴스 생성
-# app = Flask(__name__)
-# CORS(app)
-#
-# # MySQL 계정정보 등록
-# app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST')
-# app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
-# app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
-# app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
-# app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-#
-# mysql = MySqlConnector()
-#
-#
-# # 접속 url 설정
-# @app.route('/')
-# def index():
-#     return "hello flask server."
-#
-# @app.route('/recommend-articles', methods=['POST'])
-# def recommend_articles():
-#     if request.method == 'POST':
-#         data = request.get_json()
-#         city = data.get('city')
-#         content = data.get('content')
-#         article_id = data.get('article_id')
-#         requester_id = data.get('author_id')
-#         n_recom = data.get('num_of_articles')
-#
-#         if not all([article_id, content, requester_id, city, n_recom]):
-#             return 'Missing required data.', 400
-#
-#         file_path = os.path.join(os.getenv("MODEL_FOLDER"), city, "model.mtx")
-#         recommender = TfidfRecommender(city, mysql)
-#         if not os.path.exists(file_path):
-#             try:
-#                 recommender.first_learning()
-#             except Exception as e:
-#                 return f"Error: {e}", 500
-#
-#         try:
-#             recommendations = recommender.recommend_articles(article_id, content, requester_id, n_recom)
-#             return jsonify(recommendations), 200
-#         except NoDataException as e:
-#             return f"Error: {e}", 400
-#         except Exception as e:
-#             return f"Error: {e}", 500
-#     return 'bad request method', 400
-#
-# @app.route('/city-learning', methods=['POST'])
-# def city_learning():
-#     if request.method == 'POST':
-#         data = request.get_json()
-#         city = data.get('city')
-#         try:
-#             recommender = TfidfRecommender(city, mysql)
-#             recommender.first_learning()
-#         except NoDataException as e:
-#             return f"Error: {e}", 400
-#         except Exception as e:
-#             return f"Error: {e}", 500
-#         return 'Success', 200
-#     return 'bad request method', 400
-#
-# @app.route('/learning-status/<city>', methods=['GET'])
-# def is_prelearning(city):
-#     if request.method == 'GET':
-#         file_path = os.path.join(os.getenv("MODEL_FOLDER"), city, "model.mtx")
-#         if not os.path.exists(file_path):
-#             try:
-#                 recommender = TfidfRecommender(city, mysql)
-#                 recommender.first_learning()
-#             except Exception as e:
-#                 return f"Error: {e}", 500
-#             return "learning completed", 200
-#         return "learning already completed", 200
-#     return 'bad request method', 400
-#
-#
-# if __name__ == '__main__':
-#     # 코드 수정 시 자동 반영
-#     app.run(host='0.0.0.0', port=5000)
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+import pandas as pd
+import random
+import os
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.cluster import KMeans
+from mysql_connector import MySqlConnector, NoDataException
 
-# 예시
+app = Flask(__name__)
+CORS(app)
+
+# MySQL 계정정보 등록
+app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST')
+app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
+app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+mysql = MySqlConnector()
+
+def load_model_data():
+    df = pd.read_csv('./traveller.csv', encoding='UTF8')
+
+    # 'GENDER' 열의 문자열을 숫자 형식으로 변환
+    df['GENDER'] = LabelEncoder().fit_transform(df['GENDER'])
+
+    # 스케일링을 적용할 열 선택
+    scaler = StandardScaler()
+    scaled_columns = ['GENDER', 'AGE_GRP', 'INCOME'] + [col for col in df.columns if col.startswith('TRAVEL_STYL_')]
+    df[scaled_columns] = scaler.fit_transform(df[scaled_columns])
+
+    # K-means 클러스터링
+    n_clusters = 5
+    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+    df['CLUSTER'] = kmeans.fit_predict(df[scaled_columns])
+
+    return df, kmeans
+
+df, kmeans_model = load_model_data()
+
+@app.route('/')
+def index():
+    return "Welcome to my Flask app!"
+
+@app.route('/get_cluster', methods=['GET'])
+def get_cluster():
+    traveler_id = request.args.get('traveler_id', '')
+    if traveler_id and traveler_id in df['TRAVELER_ID'].values:
+        cluster_info = df[df['TRAVELER_ID'] == traveler_id]['CLUSTER'].iloc[0]
+
+        # 해당 TRAVELER_ID의 클러스터에 속하는 다른 TRAVELER_ID를 무작위로 5개 선택
+        cluster_travelers = df[df['CLUSTER'] == cluster_info]['TRAVELER_ID'].tolist()
+        if len(cluster_travelers) > 5:
+            random_ids = random.sample(cluster_travelers, 5)
+        else:
+            random_ids = cluster_travelers
+
+        return jsonify(
+            {'traveler_id': traveler_id, 'cluster': int(cluster_info), 'other_travelers_in_cluster': random_ids})
+    else:
+        return jsonify({'error': 'Traveler ID not found'}), 404
+
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=False, port=5001)
