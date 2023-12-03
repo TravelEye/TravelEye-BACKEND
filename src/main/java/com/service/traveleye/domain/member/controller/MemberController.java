@@ -42,4 +42,11 @@ public class MemberController {
         return memberService.checkDuplicateEmail(email);
     }
 
+//    @GetMapping("/member")
+//    public DataResDTO<?> getMemberInfo(@PathVariable String email){
+//        String email = "user1@gmail.com";
+//        return memberService.checkDuplicateEmail(email);
+//    }
+
+
 }
