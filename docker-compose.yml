@@ -67,17 +67,15 @@ services:
     container_name: database
     environment:
       MYSQL_DATABASE: traveleye
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_HOST: "%"
       MYSQL_ROOT_PASSWORD: Wldmswltn12!
-      ports:
-        -"3306:3306"
-#      volumes:
-#        -./:/var/lib/mysql
-      networks:
-        -traveleye-network
+      ports: -"3306:3306"
+      #      volumes:
+      #        -./:/var/lib/mysql
+      networks: -traveleye-network
 
   springboot:
-    image: "mellykim123/docker-test:latest"
+    image: "mellykim123/docker-test2:latest"
     ports:
       - "80:8080"
     depends_on:
