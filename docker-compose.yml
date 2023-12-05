@@ -62,13 +62,13 @@ networks: # container간 통신 방식
     driver: bridge
 services:
   database:
-    image: mysql:8.1.0
+    image: "mellykim123/mysql-test1"
     restart: always
     container_name: database
     environment:
       MYSQL_DATABASE: traveleye
       MYSQL_ROOT_HOST: "%"
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       ports: -"3307:3306"
       volumes:
             -./:/var/lib/mysql
