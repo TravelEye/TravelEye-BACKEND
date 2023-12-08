@@ -4,7 +4,7 @@ networks: # container간 통신 방식
     driver: bridge
 services:
   database:
-    image: "mellykim123/mysql"
+    image: "mellykim123/mysql2"
     restart: always
     container_name: database
     environment:
