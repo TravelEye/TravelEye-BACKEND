@@ -1,9 +1,8 @@
 FROM mysql:8.1.0
 
-# ENV MYSQL_ROOT_PASSWORD=""
-ENV MYSQL_ALLOW_EMPTY_PASSWORD=true
+ENV MYSQL_ROOT_PASSWORD=""
 ENV MYSQL_DATABASE="traveleye"
-ENV MYSQL_HOST="%"
+ENV MYSQL_ROOT_HOST="%"
 
 # Create the user and grant privileges in separate statements
 RUN echo "CREATE USER 'root'@'%' IDENTIFIED BY '';" > /docker-entrypoint-initdb.d/01-create-user.sql
