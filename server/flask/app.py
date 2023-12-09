@@ -1,11 +1,9 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import pandas as pd
 import random
 import os
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.cluster import KMeans
-from mysql_connector import MySqlConnector, NoDataException
+
+from mysql_connector import MySqlConnector
 
 app = Flask(__name__)
 CORS(app)
@@ -17,27 +15,9 @@ app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-mysql = MySqlConnector()
 
-def load_model_data():
-    df = pd.read_csv('./traveller.csv', encoding='UTF8')
-
-    # 'GENDER' 열의 문자열을 숫자 형식으로 변환
-    df['GENDER'] = LabelEncoder().fit_transform(df['GENDER'])
-
-    # 스케일링을 적용할 열 선택
-    scaler = StandardScaler()
-    scaled_columns = ['GENDER', 'AGE_GRP', 'INCOME'] + [col for col in df.columns if col.startswith('TRAVEL_STYL_')]
-    df[scaled_columns] = scaler.fit_transform(df[scaled_columns])
-
-    # K-means 클러스터링
-    n_clusters = 5
-    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-    df['CLUSTER'] = kmeans.fit_predict(df[scaled_columns])
-
-    return df, kmeans
-
-df, kmeans_model = load_model_data()
+connector = MySqlConnector()
+df, kmeans_model = connector.load_model_data()
 
 @app.route('/')
 def index():

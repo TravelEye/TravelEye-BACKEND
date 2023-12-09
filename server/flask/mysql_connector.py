@@ -1,8 +1,10 @@
 from dotenv import load_dotenv
-from refiner import refiner
-import pandas as pd
 import mysql.connector
 import os
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.cluster import KMeans
+import pandas as pd
+
 
 load_dotenv()
 
@@ -10,29 +12,33 @@ class MySqlConnector:
 
     def __init__(self):
         self.conn = mysql.connector.connect(
-            host = os.getenv("MYSQL_HOST"),
-            user = os.getenv("MYSQL_USER"),
-            password = os.getenv("MYSQL_PASSWORD"),
-            database = os.getenv("MYSQL_DB"),
-            port = os.getenv("MYSQL_PORT"),
+            host=os.getenv("MYSQL_HOST"),
+            user=os.getenv("MYSQL_USER"),
+            password=os.getenv("MYSQL_PASSWORD"),
+            database=os.getenv("MYSQL_DB"),
+            port=os.getenv("MYSQL_PORT"),
         )
         if self.conn is None:
             raise ValueError("Failed to establish a connection with the MySQL database.")
 
-    # 특정 도시의 게시글 조회 후 pandas DataFrame 타입으로 반환
-    def query_article_pd(self, city):
-        query = "SELECT id, content, author_id FROM coredb.article where end_date >= now() and status = 'T'and city = '{}';".format(city)
-        cursor = self.conn.cursor()
-        cursor.execute(query)
-        article_list = cursor.fetchall()
-        if len(article_list) < 1:
-            raise NoDataException(city)
-        article_pd = pd.DataFrame(article_list, columns=['id', 'content', 'author_id'])
-        return refiner(article_pd)
+    def load_model_data(self):  # Added 'self' parameter
+        df = pd.read_csv('./traveller.csv', encoding='UTF8')
+        if df.empty:
+            raise self.NoDataException("No data loaded from CSV.")
+        # 'GENDER' 열의 문자열을 숫자 형식으로 변환
+        df['GENDER'] = LabelEncoder().fit_transform(df['GENDER'])
 
+        # 스케일링을 적용할 열 선택
+        scaler = StandardScaler()
+        scaled_columns = ['GENDER', 'AGE_GRP', 'INCOME'] + [col for col in df.columns if col.startswith('TRAVEL_STYL_')]
+        df[scaled_columns] = scaler.fit_transform(df[scaled_columns])
 
-class NoDataException(Exception):
-    def __init__(self, city):
-        self.city = city
-        self.message = f'{city}에 해당하는 게시글이 없습니다.'
-        super().__init__(self.message)
+        # K-means 클러스터링
+        n_clusters = 5
+        kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+        df['CLUSTER'] = kmeans.fit_predict(df[scaled_columns])
+
+        return df, kmeans
+
+    class NoDataException(Exception):
+        pass
