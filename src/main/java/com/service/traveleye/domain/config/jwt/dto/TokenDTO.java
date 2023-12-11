@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TokenDTO {
 
-    private String grantType; // 인증타입 :: 예시)"Bearer"
+//    private String grantType; // 인증타입 :: 예시)"Bearer"
     private String accessToken; // 토큰값
     private String refreshToken; // refresh 토큰값
-    private Long accessTokenExpiresIn; // 토큰 만료시간
+//    private Long accessTokenExpiresIn; // 토큰 만료시간
 
 }

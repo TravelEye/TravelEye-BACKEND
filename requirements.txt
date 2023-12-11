@@ -1,1 +1,1 @@
-pandas dotenv flask
+pandas python-dotenv flask flask_cors mysql-connector

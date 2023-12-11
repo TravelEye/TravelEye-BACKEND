@@ -1,5 +1,6 @@
 package com.service.traveleye.domain.member.service;
 
+
 import com.service.traveleye.domain.config.jwt.JwtFilter;
 import com.service.traveleye.domain.config.jwt.JwtTokenProvider;
 import com.service.traveleye.domain.config.jwt.dto.TokenDTO;
@@ -93,7 +94,7 @@ public class MemberServiceImpl implements MemberService {
 
         return DataResDTO.builder()
                 .message("토큰 생성 완료")
-                .data(MemberLoginResDTO.toBuild(member, tokenDTO))
+                .data(MemberLoginResDTO.toBuild( tokenDTO))
                 .build();
     }
 

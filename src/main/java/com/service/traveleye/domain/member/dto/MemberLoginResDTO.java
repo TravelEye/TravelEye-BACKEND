@@ -13,28 +13,34 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class MemberLoginResDTO {
-    private String uuid;
-    private String phoneNumber;
-    private String email;
-    private int age;
-    private String gender;
-    private Boolean shareLocation;
-    private Authority authority;
+//    private String uuid;
+//    private String phoneNumber;
+//    private String email;
+//    private int age;
+//    private String gender;
+//    private Boolean shareLocation;
+//    private Authority authority;
 
     private TokenDTO tokenDTO;
-
-    public static MemberLoginResDTO toBuild(Member member , TokenDTO tokenDTO){
+    public static MemberLoginResDTO toBuild(TokenDTO tokenDTO){
         return MemberLoginResDTO.builder()
-                .uuid(member.getUuid().toString())
-                .phoneNumber(member.getPhoneNumber())
-                .email(member.getEmail())
-                .age(member.getAge())
-                .gender(member.getGender())
-                .shareLocation(member.getShareLocation())
-                .authority(member.getAuthority())
                 .tokenDTO(tokenDTO)
                 .build();
 
 
     }
+//    public static MemberLoginResDTO toBuild(Member member , TokenDTO tokenDTO){
+//        return MemberLoginResDTO.builder()
+//                .uuid(member.getUuid().toString())
+//                .phoneNumber(member.getPhoneNumber())
+//                .email(member.getEmail())
+//                .age(member.getAge())
+//                .gender(member.getGender())
+//                .shareLocation(member.getShareLocation())
+//                .authority(member.getAuthority())
+//                .tokenDTO(tokenDTO)
+//                .build();
+//
+//
+//    }
 }
