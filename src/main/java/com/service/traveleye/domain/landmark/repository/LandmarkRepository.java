@@ -10,4 +10,7 @@ import java.util.List;
 public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
 //    getRecommendList
     List<Landmark> findAll();
+    Landmark findByLandmarkId(Long landmarkId);
+
+    Landmark findLandmarkByPlaceStartingWith(String place);
 }

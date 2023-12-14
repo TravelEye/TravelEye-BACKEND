@@ -3,6 +3,7 @@ package com.service.traveleye.domain.landmark.service;
 import com.service.traveleye.domain.landmark.dto.LandmarkListResDTO;
 import com.service.traveleye.domain.landmark.entity.Landmark;
 import com.service.traveleye.domain.landmark.repository.LandmarkRepository;
+import com.service.traveleye.global.dto.DataResDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,15 +21,19 @@ private final LandmarkRepository landmarkRepository;
 
 
     @Override
-    public List<LandmarkListResDTO> getLandmarkList() {
-       return landmarkRepository.findAll().stream()
-                .map(landmark -> LandmarkListResDTO.builder()
-                        .landmarkId(landmark.getLandmarkId())
-                        .landmarkName(landmark.getLandmarkName())
-                        .longitude(landmark.getLongitude())
-                        .latitude(landmark.getLatitude())
-                        .build())
-                .collect(Collectors.toList());
+    public DataResDTO<?> getLandmarkList() {
+       return DataResDTO.builder()
+               .message("랜드마크 전체 조회 성공")
+               .data(landmarkRepository.findAll())
+               .build();
+    }
+
+    @Override
+    public DataResDTO<?> getLandmarkByPlace(String place) {
+        return DataResDTO.builder()
+                .message("랜드마크 검색 성공")
+                .data(landmarkRepository.findLandmarkByPlaceStartingWith(place))
+                .build();
     }
 
 //    @Override

@@ -22,28 +22,31 @@ import java.util.List;
 @RequestMapping("/trip")
 public class TripController {
     private final TripService tripService;
-    private final TripRepository tripRepository;
 
     @GetMapping("")
     public List<ArrayTripResDTO>  getTrips( @AuthenticationPrincipal MemberDetails memberDetails){
-        System.out.println(memberDetails.getUsername());
-        return tripService.getByMemberId(memberDetails.getMember().getEmail());
+        String email = extractMemberEmail(memberDetails);
+        return tripService.getByMemberId(email);
     }
     @PostMapping("/new")
-    public boolean addTrip(@RequestBody TripAddReqDTO tripAddReqDTO){
-        String email = "user1@gmail.com";
+    public boolean addTrip(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody TripAddReqDTO tripAddReqDTO){
+        String email = extractMemberEmail(memberDetails);
         return tripService.addTrip(email,tripAddReqDTO);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteTrip(@PathVariable Long id){
+    public boolean deleteTrip(@AuthenticationPrincipal MemberDetails memberDetails,@PathVariable Long id){
         return tripService.deleteTripById(id);
     }
 
     @PutMapping("")
-    public boolean updateTrip( @RequestBody TripUpdateReqDTO tripUpdateReqDTO){
-        String email =  "user1@gmail.com";
+    public boolean updateTrip( @AuthenticationPrincipal MemberDetails memberDetails,@RequestBody TripUpdateReqDTO tripUpdateReqDTO){
+        String email = extractMemberEmail(memberDetails);
         tripService.updateTrip(email,tripUpdateReqDTO);
         return true;
+    }
+
+    private String extractMemberEmail(MemberDetails memberDetails) {
+        return memberDetails.getMember().getEmail();
     }
 }

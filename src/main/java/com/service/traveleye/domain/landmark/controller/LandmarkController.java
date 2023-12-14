@@ -4,8 +4,10 @@ import com.service.traveleye.domain.landmark.dto.LandmarkListResDTO;
 import com.service.traveleye.domain.landmark.entity.Landmark;
 import com.service.traveleye.domain.landmark.repository.LandmarkRepository;
 import com.service.traveleye.domain.landmark.service.LandmarkService;
+import com.service.traveleye.domain.member.entity.MemberDetails;
 import com.service.traveleye.global.dto.DataResDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,10 +18,17 @@ import java.util.List;
 @RequestMapping("/map")
 public class LandmarkController {
     private final LandmarkService landmarkService;
-    @GetMapping("")
-    public List<LandmarkListResDTO> getLandmarkList(){
+    @GetMapping("/all")
+    public DataResDTO<?> getLandmarkList(){
          return landmarkService.getLandmarkList();
     }
+
+    @GetMapping("/byPlace")
+    public  DataResDTO<?> getLandmarkByPlace(@AuthenticationPrincipal MemberDetails memberDetails, @RequestParam String place){
+        return landmarkService.getLandmarkByPlace(place);
+    }
+
+
 
 //    @GetMapping("/recommend")
 //    public DataResDTO<?> myMapList(

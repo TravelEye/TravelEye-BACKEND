@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Table(name="landmark_test")
+@Table(name="landmark_test") /* 여행지를 관리하는 테이블 */
 @NoArgsConstructor
 @ToString
 public class Landmark extends BaseEntity {
@@ -19,9 +19,19 @@ public class Landmark extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long landmarkId;
-    private String landmarkName;
-    private Double latitude;
-    private Double longitude;
 
-//    private Point point;
+    @Column(nullable = false)
+    private String continent;
+    @Column(nullable = false)
+    private String country;
+    @Column(nullable = false)
+    private String city;
+
+    @Column(nullable = false)
+    private String place; /* 장소 이름 */
+
+    private Double latitude; /* 위도 */
+    private Double longitude; /* 경도 */
+
+    private String address; /* 도로명 주소 */
 }
