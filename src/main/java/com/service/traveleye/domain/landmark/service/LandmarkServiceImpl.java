@@ -36,6 +36,8 @@ private final LandmarkRepository landmarkRepository;
                 .build();
     }
 
+
+
 //    @Override
 //    public DataResDTO<?> getRecommendList(String email, LocationRecommendReqDTO locationRecommendReqDTO) {
 //        // Location 자료형으로 변수를 선언하여 해당 요청받은 x,y 값으로 북동쪽과 남서쪽의 위치를 계산

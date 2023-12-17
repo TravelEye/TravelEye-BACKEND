@@ -4,7 +4,7 @@ networks: # container간 통신 방식
     driver: bridge
 services:
   database:
-    image: "mellykim123/mysql2"
+    image: "mellykim123/mysql:v1"
     restart: always
     container_name: database
     environment:
@@ -20,7 +20,7 @@ services:
         -traveleye-network
 
   springboot:
-    image: "mellykim123/spring"
+    image: "mellykim123/spring:v1"
     ports:
       - "80:8080"
     depends_on:

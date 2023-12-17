@@ -26,16 +26,19 @@ public class Trip  extends BaseEntity {
     private Member member;
 
     private String country;
+    private String city;
+
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String title; // 여정별명
     private State state; // 여행전 PENDING | 여행중 ACTIVE | 여행후 COMPLETED
 
     @Builder
-    public Trip(Long tripId, Member member, String country, LocalDateTime startDate, LocalDateTime endDate, String title, State state) {
+    public Trip(Long tripId, Member member, String country, String city, LocalDateTime startDate, LocalDateTime endDate, String title, State state) {
         this.tripId = tripId;
         this.member = member;
         this.country = country;
+        this.city = city;
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;

@@ -23,30 +23,28 @@ import java.util.List;
 public class TripController {
     private final TripService tripService;
 
-    @GetMapping("")
-    public List<ArrayTripResDTO>  getTrips( @AuthenticationPrincipal MemberDetails memberDetails){
-        String email = extractMemberEmail(memberDetails);
-        return tripService.getByMemberId(email);
+    @GetMapping("/all")
+    public DataResDTO<?>  getTrips( @AuthenticationPrincipal MemberDetails memberDetails){
+        Long id = memberDetails.getMember().getId();
+        return tripService.getByMemberId(id);
     }
     @PostMapping("/new")
-    public boolean addTrip(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody TripAddReqDTO tripAddReqDTO){
-        String email = extractMemberEmail(memberDetails);
-        return tripService.addTrip(email,tripAddReqDTO);
+    public DataResDTO<?> addTrip(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody TripAddReqDTO tripAddReqDTO){
+        Long id = memberDetails.getMember().getId();
+        return tripService.addTrip(id,tripAddReqDTO);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteTrip(@AuthenticationPrincipal MemberDetails memberDetails,@PathVariable Long id){
+    public DataResDTO<?> deleteTrip(@AuthenticationPrincipal MemberDetails memberDetails,@PathVariable Long id){
         return tripService.deleteTripById(id);
     }
 
     @PutMapping("")
-    public boolean updateTrip( @AuthenticationPrincipal MemberDetails memberDetails,@RequestBody TripUpdateReqDTO tripUpdateReqDTO){
-        String email = extractMemberEmail(memberDetails);
-        tripService.updateTrip(email,tripUpdateReqDTO);
-        return true;
+    public DataResDTO<?> updateTrip( @AuthenticationPrincipal MemberDetails memberDetails,@RequestBody TripUpdateReqDTO tripUpdateReqDTO){
+        Long id = memberDetails.getMember().getId();
+       return tripService.updateTrip(id,tripUpdateReqDTO);
+
     }
 
-    private String extractMemberEmail(MemberDetails memberDetails) {
-        return memberDetails.getMember().getEmail();
-    }
+
 }

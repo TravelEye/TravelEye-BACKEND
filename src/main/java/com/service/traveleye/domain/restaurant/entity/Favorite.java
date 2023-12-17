@@ -2,10 +2,7 @@ package com.service.traveleye.domain.restaurant.entity;
 
 import com.service.traveleye.domain.member.entity.Member;
 import com.service.traveleye.global.BaseEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -27,4 +24,11 @@ public class Favorite extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "restaurant_id",nullable = false)
     private Restaurant restaurant;
+
+    @Builder
+    public Favorite(Long id, Member member, Restaurant restaurant) {
+        this.id = id;
+        this.member = member;
+        this.restaurant = restaurant;
+    }
 }

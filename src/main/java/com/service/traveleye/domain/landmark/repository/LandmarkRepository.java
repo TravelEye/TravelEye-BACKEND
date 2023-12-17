@@ -13,4 +13,6 @@ public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
     Landmark findByLandmarkId(Long landmarkId);
 
     Landmark findLandmarkByPlaceStartingWith(String place);
+
+
 }

@@ -11,4 +11,6 @@ public interface LandmarkService {
 //    DataResDTO<?> getRecommendList(String email,LocationRecommendReqDTO locationRecommendReqDTO);
 DataResDTO<?> getLandmarkList();
 DataResDTO<?> getLandmarkByPlace(String place);
+
+
 }

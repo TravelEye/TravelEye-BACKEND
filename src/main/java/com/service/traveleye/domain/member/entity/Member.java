@@ -1,7 +1,5 @@
 package com.service.traveleye.domain.member.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.service.traveleye.domain.checklist.entity.Checklist;
 import com.service.traveleye.domain.config.entity.Authority;
 import com.service.traveleye.global.BaseEntity;
 import lombok.*;

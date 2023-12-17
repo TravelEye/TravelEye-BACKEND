@@ -30,6 +30,8 @@ public class LandmarkController {
 
 
 
+
+
 //    @GetMapping("/recommend")
 //    public DataResDTO<?> myMapList(
 //            @RequestParam final Double x,
