@@ -6,6 +6,6 @@ import com.service.traveleye.global.dto.DataResDTO;
 
 public interface FavoriteService {
     DataResDTO<?> getAllFavorites(Member member);
-    DataResDTO<?> selectFavorite(Member member, Long restaurantId);
+    DataResDTO<?> selectFavorite(Member member, String restaurantId, String restaurantName);
     DataResDTO<?> deleteFavorite(Long favoriteId);
 }

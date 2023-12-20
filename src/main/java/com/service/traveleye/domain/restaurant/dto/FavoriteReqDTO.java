@@ -4,5 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class FavoriteReqDTO {
-    private Long restaurantId;
+    private String restaurantId;
+    private String restaurantName;
 }

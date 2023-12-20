@@ -21,14 +21,17 @@ public class Favorite extends BaseEntity {
     @JoinColumn(name = "member_id",nullable = false)
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id",nullable = false)
-    private Restaurant restaurant;
+//    @ManyToOne
+//    @JoinColumn(name = "restaurant_id",nullable = false)
+//    private Restaurant restaurant;
 
+    private String restaurantId;
+    private String restaurantName;
     @Builder
-    public Favorite(Long id, Member member, Restaurant restaurant) {
+    public Favorite(Long id, Member member,String restaurantId, String restaurantName) {
         this.id = id;
         this.member = member;
-        this.restaurant = restaurant;
+        this.restaurantId = restaurantId;
+        this.restaurantName = restaurantName;
     }
 }

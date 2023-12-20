@@ -21,7 +21,7 @@ private final FavoriteService favoriteService;
 
     @PostMapping("")
     public DataResDTO<?> selectFavorite(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody FavoriteReqDTO favoriteReqDTO){
-        return favoriteService.selectFavorite(memberDetails.getMember(),favoriteReqDTO.getRestaurantId());
+        return favoriteService.selectFavorite(memberDetails.getMember(),favoriteReqDTO.getRestaurantId(),favoriteReqDTO.getRestaurantName());
     }
 
     @DeleteMapping("/{id}")
