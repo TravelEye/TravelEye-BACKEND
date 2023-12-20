@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,16 +55,20 @@ private final LandmarkRepository landmarkRepository;
         Trip result1 = tripRepository.save(trip);
 
         //trip memo
-        List<TripMemoAddReqDTO> tripMemos = tripAddReqDTO.getMemos();
-        for (TripMemoAddReqDTO tripMemo : tripMemos) {
-            Landmark landmark = landmarkRepository.findByLandmarkId(tripMemo.getLandmarkId());
-            TripMemo newTripmemo = TripMemo.builder()
-                                    .memo(tripMemo.getMemo())
-                                    .date(tripMemo.getDate())
-                                    .landmark(landmark)
-                                    .trip(trip)
-                                    .build();
-          tripMemoRepository.save(newTripmemo);
+        Optional<List<TripMemoAddReqDTO>> optionalMemos = tripAddReqDTO.getMemos();
+        System.out.println(optionalMemos);
+        if (optionalMemos != null) {
+            List<TripMemoAddReqDTO> tripMemos = optionalMemos.get();
+            for (TripMemoAddReqDTO tripMemo : tripMemos) {
+                Landmark landmark = landmarkRepository.findByLandmarkId(tripMemo.getLandmarkId());
+                TripMemo newTripmemo = TripMemo.builder()
+                        .memo(tripMemo.getMemo())
+                        .date(tripMemo.getDate())
+                        .landmark(landmark)
+                        .trip(trip)
+                        .build();
+                tripMemoRepository.save(newTripmemo);
+            }
         }
 
         return DataResDTO.builder()

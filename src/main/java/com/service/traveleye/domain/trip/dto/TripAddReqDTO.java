@@ -3,10 +3,12 @@ package com.service.traveleye.domain.trip.dto;
 import com.service.traveleye.domain.config.entity.State;
 import com.service.traveleye.domain.trip.entity.TripMemo;
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 public class TripAddReqDTO {
@@ -17,6 +19,7 @@ public class TripAddReqDTO {
     private LocalDateTime endDate;
     private State state; // PENDING
 
-    private List<TripMemoAddReqDTO> memos;
+
+    private Optional<List<TripMemoAddReqDTO> >memos;
 
 }
