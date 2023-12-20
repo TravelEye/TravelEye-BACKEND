@@ -1,9 +1,9 @@
 from dotenv import load_dotenv
 import mysql.connector
 import os
-from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.cluster import KMeans
+import joblib
 import pandas as pd
+from sklearn.cluster import KMeans
 
 
 load_dotenv()
@@ -22,23 +22,28 @@ class MySqlConnector:
             raise ValueError("Failed to establish a connection with the MySQL database.")
 
     def load_model_data(self):  # Added 'self' parameter
-        df = pd.read_csv('./traveller.csv', encoding='UTF8')
-        if df.empty:
+
+        kmeans = KMeans(n_clusters=317, random_state=42)
+        scaler = KMeans(n_clusters=317, random_state=42)
+        # scaled_df = KMeans(n_clusters=317, random_state=42)
+        # original_df = KMeans(n_clusters=317, random_state=42)
+        joblib.dump(kmeans, 'traveler_kmeans_model.pkl')
+        joblib.dump(scaler, 'scaler.pkl')
+        # joblib.dump(scaled_df, 'scaled_traveler.csv')
+        # joblib.dump(original_df, './TravelerDB.csv')
+
+
+        kmeans = joblib.load('./traveler_kmeans_model.pkl')
+        scaler = joblib.load('./scaler.pkl')
+        scaled_df = pd.read_csv('scaled_traveler.csv',  encoding='ISO-8859-1')
+        original_df = pd.read_csv('./TravelerDB.csv', encoding='ISO-8859-1')
+
+
+
+        if original_df.empty:
             raise self.NoDataException("No data loaded from CSV.")
-        # 'GENDER' 열의 문자열을 숫자 형식으로 변환
-        df['GENDER'] = LabelEncoder().fit_transform(df['GENDER'])
 
-        # 스케일링을 적용할 열 선택
-        scaler = StandardScaler()
-        scaled_columns = ['GENDER', 'AGE_GRP', 'INCOME'] + [col for col in df.columns if col.startswith('TRAVEL_STYL_')]
-        df[scaled_columns] = scaler.fit_transform(df[scaled_columns])
-
-        # K-means 클러스터링
-        n_clusters = 5
-        kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-        df['CLUSTER'] = kmeans.fit_predict(df[scaled_columns])
-
-        return df, kmeans
+        return original_df, kmeans,scaler,scaled_df
 
     class NoDataException(Exception):
         pass

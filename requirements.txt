@@ -1,1 +1,1 @@
-pandas python-dotenv flask flask_cors mysql-connector
+pandas python-dotenv flask flask_cors mysql-connector joblib
