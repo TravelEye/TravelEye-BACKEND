@@ -23,9 +23,9 @@ class MySqlConnector:
 
     def load_model_data(self):  # Added 'self' parameter
 
-        # kmeans = KMeans(n_clusters=317, random_state=42)
-        # scaler = KMeans(n_clusters=317, random_state=42)
         df = pd.read_csv('./traveller.csv', encoding='UTF8')
+        original_df = pd.read_csv('./TravelerDB.csv', encoding='UTF8')
+
 
         # 'GENDER' 열의 문자열을 숫자 형식으로 변환
         df['GENDER'] = LabelEncoder().fit_transform(df['GENDER'])
@@ -40,7 +40,7 @@ class MySqlConnector:
         kmeans = KMeans(n_clusters=n_clusters, random_state=42)
         df['CLUSTER'] = kmeans.fit_predict(df[scaled_columns])
 
-        return df, kmeans
+        return df, kmeans, original_df
 
 
 

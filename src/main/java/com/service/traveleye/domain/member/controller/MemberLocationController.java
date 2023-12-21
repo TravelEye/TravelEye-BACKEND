@@ -7,6 +7,7 @@ import com.service.traveleye.domain.member.service.MemberLocationService;
 import com.service.traveleye.global.dto.DataResDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,5 +21,10 @@ public class MemberLocationController {
     public DataResDTO<?> setLocation(@AuthenticationPrincipal MemberDetails memberDetails, @RequestBody MemberLocationReqDTO memberLocationReqDTO){
         Member member = memberDetails.getMember();
         return memberLocationService.setLocation(member,memberLocationReqDTO.getLatitude(), memberLocationReqDTO.getLongitude());
+    }
+    @GetMapping("/location")
+    public DataResDTO<?> getLocation(@AuthenticationPrincipal MemberDetails memberDetails){
+        Member member = memberDetails.getMember();
+        return memberLocationService.getLocation(member);
     }
 }

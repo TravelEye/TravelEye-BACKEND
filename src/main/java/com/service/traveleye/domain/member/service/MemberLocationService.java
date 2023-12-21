@@ -5,4 +5,5 @@ import com.service.traveleye.global.dto.DataResDTO;
 
 public interface MemberLocationService {
     DataResDTO<?> setLocation(Member member, Double latitude, Double longitude);
+    DataResDTO<?> getLocation(Member member);
 }

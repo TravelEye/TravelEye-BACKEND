@@ -27,5 +27,13 @@ public class MemberLocationServiceImpl implements MemberLocationService{
                 .data(memberLocationRepository.save(memberLocation))
                 .build();
     }
+    @Override
+    public DataResDTO<?> getLocation(Member member) {
+
+        return DataResDTO.builder()
+                .message("location 가져오기 완료")
+                .data(memberLocationRepository.getMemberLocationByMember(member))
+                .build();
+    }
 
 }
