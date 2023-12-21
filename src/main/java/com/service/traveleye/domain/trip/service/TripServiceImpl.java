@@ -61,12 +61,14 @@ private final LandmarkRepository landmarkRepository;
             List<TripMemoAddReqDTO> tripMemos = optionalMemos.get();
             for (TripMemoAddReqDTO tripMemo : tripMemos) {
                 Landmark landmark = landmarkRepository.findByLandmarkId(tripMemo.getLandmarkId());
+
                 TripMemo newTripmemo = TripMemo.builder()
                         .memo(tripMemo.getMemo())
                         .date(tripMemo.getDate())
                         .landmark(landmark)
                         .trip(trip)
                         .build();
+
                 tripMemoRepository.save(newTripmemo);
             }
         }
