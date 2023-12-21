@@ -22,7 +22,7 @@ public class MemberLocationController {
         Member member = memberDetails.getMember();
         return memberLocationService.setLocation(member,memberLocationReqDTO.getLatitude(), memberLocationReqDTO.getLongitude());
     }
-    @GetMapping("/location")
+    @GetMapping("/location/all")
     public DataResDTO<?> getLocation(@AuthenticationPrincipal MemberDetails memberDetails){
         Member member = memberDetails.getMember();
         return memberLocationService.getLocation(member);
